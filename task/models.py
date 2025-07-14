@@ -10,7 +10,7 @@ class Tag(models.Model):
 
 class Task(models.Model):
     content = models.TextField()
-    create_time = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     deadline = models.DateTimeField(blank=True, null=True)
     done = models.BooleanField(default=False)
     tags = models.ManyToManyField(Tag, related_name="tasks")
@@ -20,8 +20,3 @@ class Task(models.Model):
 
     def __str__(self):
         return self.content
-
-
-
-
-
