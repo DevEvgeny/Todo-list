@@ -15,6 +15,11 @@
             {% else %}
               <span class="text-danger">Not done</span>
             {% endif %}
+            {% if task.done %}
+              <a href="{% url 'task:task-undo' pk=task.id %}" class="btn btn-secondary float-right">Undo</a>
+            {% else %}
+              <a href="{% url 'task:task-complete' pk=task.id %}" class="btn btn-success float-right">Complete</a>
+            {% endif %}
           </h5>
           <p>Created: {{ task.created_at }}
             {% if task.deadline %} <span style="color: brown">Deadline: {{ task.deadline }}

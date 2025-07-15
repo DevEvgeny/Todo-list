@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -59,3 +60,17 @@ class TagDeleteView(generic.DeleteView):
     model = Tag
     template_name = "todo/tag_confirm_delete.html"
     success_url = reverse_lazy("task:tag-list")
+
+
+def complete_task(request, pk):
+    task = get_object_or_404(Task, id=pk)
+    task.done = True
+    task.save()
+    return redirect("task:task-list")
+
+
+def undo_task(request, pk):
+    task = get_object_or_404(Task, id=pk)
+    task.done = False
+    task.save()
+    return redirect("task:task-list")
