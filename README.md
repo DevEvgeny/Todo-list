@@ -16,3 +16,6 @@ The Todo List Project allows users to create, view, update, and delete tasks and
 5. Start the server:```python manage.py runserver```
 6. Open http://127.0.0.1:8000/ in your browser to view the site.
 
+## Demo
+![website Interface](demo.png)
+
