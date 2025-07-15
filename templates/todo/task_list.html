@@ -16,11 +16,25 @@
               <span class="text-danger">Not done</span>
             {% endif %}
           </h5>
-          <p>Created: {{ task.created_at }}</p>
-          <h4 style="color: grey">Tags: {{ task.tags.name }}</h4>
-        </li>
-      {% endfor %}
+          <p>Created: {{ task.created_at }}
+            {% if task.deadline %} <span style="color: brown">Deadline: {{ task.deadline }}
+            {% endif %}
+            </span>
+          </p>
 
+          {% if task.tags.all %}
+            <p style="color: grey;">
+              <strong>Tags:</strong>
+              {% for tag in task.tags.all %}
+                <strong>{{ tag.name }}</strong>{% if not forloop.last %}, {% endif %}
+              {% endfor %}
+              <strong><a href="{% url 'task:task-update' pk=task.id %}">Update</a></strong>
+              <strong><a href="{% url 'task:task-delete' pk=task.id %}">Delete</a></strong>
+            </p>
+          {% endif %}
+        </li>
+        <hr>
+      {% endfor %}
     </ul>
   {% else %}
     <p>There are no any tasks.</p>

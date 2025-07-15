@@ -11,11 +11,8 @@ class TaskListView(generic.ListView):
     context_object_name = "task_list"
     template_name = "todo/task_list.html"
 
-
-class TagListView(generic.ListView):
-    model = Tag
-    context_object_name = "tag_list"
-    template_name = "todo/tag_list.html"
+    def get_queryset(self):
+        return Task.objects.prefetch_related("tags")
 
 
 class TaskCreateView(generic.CreateView):
@@ -24,3 +21,21 @@ class TaskCreateView(generic.CreateView):
     template_name = "todo/task_form.html"
     success_url = reverse_lazy("task:task-list")
 
+
+class TaskUpdateView(generic.UpdateView):
+    model = Task
+    form_class = TaskForm
+    template_name = "todo/task_form.html"
+    success_url = reverse_lazy("task:task-list")
+
+
+class TaskDeleteView(generic.DeleteView):
+    model = Task
+    template_name = "todo/task_confirm_delete.html"
+    success_url = reverse_lazy("task:task-list")
+
+
+class TagListView(generic.ListView):
+    model = Tag
+    context_object_name = "tag_list"
+    template_name = "todo/tag_list.html"
